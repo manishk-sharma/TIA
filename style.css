@@ -3028,8 +3028,28 @@ button {
   }
 
   .hero-visual {
+    width: 100%;
     max-width: 500px;
     margin: 0 auto;
+  }
+
+  .hero-content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-description {
+    max-width: 600px;
+  }
+
+  .hero-stats-row {
+    justify-content: center;
+  }
+
+  .hero-action-buttons {
+    justify-content: center;
   }
 
   .alumni-grid {
@@ -3177,9 +3197,80 @@ button {
   }
 
   .hero-visual {
-    max-width: 580px;
+    max-width: 440px;
     width: 100%;
     margin: 0 auto;
+  }
+
+  .hero-title {
+    font-size: 2.4rem;
+  }
+
+  .hero-stats-row {
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+  }
+
+  .hero-action-buttons {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .placement-board {
+    padding: 18px 14px 16px;
+    border-radius: 20px;
+  }
+
+  .showcase-top {
+    height: 185px;
+  }
+
+  .student-avatar-frame {
+    width: 130px;
+    height: 165px;
+  }
+
+  .batch-rotated {
+    font-size: 30px;
+  }
+
+  .card-linkedin-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .card-linkedin-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .showcase-bottom {
+    padding: 12px 14px 14px;
+  }
+
+  .student-name {
+    font-size: 1rem;
+    margin-bottom: 6px;
+  }
+
+  .student-role-badge {
+    font-size: 0.68rem;
+    padding: 4px 10px;
+  }
+
+  .placement-board-footer {
+    margin-top: 16px;
+  }
+
+  .watermark-title {
+    font-size: 1.6rem;
+  }
+
+  .board-circle-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 15px;
   }
 }
 
@@ -3197,7 +3288,12 @@ button {
   }
 
   .hero-title {
-    font-size: 2.1rem;
+    font-size: 1.9rem;
+    line-height: 1.2;
+  }
+
+  .hero-title br {
+    display: none;
   }
 
   .hero-stats-row {
@@ -3225,8 +3321,74 @@ button {
     max-width: 100%;
   }
 
+  .hero-visual {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .placement-board {
+    padding: 14px 10px 12px;
+    border-radius: 16px;
+  }
+
+  .showcase-top {
+    height: 155px;
+  }
+
+  .student-avatar-frame {
+    width: 110px;
+    height: 140px;
+  }
+
+  .batch-rotated {
+    font-size: 26px;
+    left: 8px;
+    top: 12px;
+  }
+
+  .card-linkedin-icon {
+    width: 30px;
+    height: 30px;
+    top: 8px;
+    right: 8px;
+  }
+
+  .card-linkedin-icon svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .showcase-bottom {
+    padding: 10px 12px 12px;
+  }
+
+  .student-name {
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+  }
+
+  .student-role-badge {
+    font-size: 0.65rem;
+    padding: 3px 8px;
+  }
+
+  .placement-board-footer {
+    margin-top: 12px;
+  }
+
   .watermark-title {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+  }
+
+  .board-circle-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+
+  .board-nav-buttons {
+    gap: 8px;
   }
 
   .hero-cards-grid {
