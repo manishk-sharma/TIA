@@ -1917,18 +1917,17 @@ button {
 }
 
 .btn-download-report {
-  background: #0056D2;
+  background: #ffffff00;
   color: #FFFFFF;
   font-size: 14.5px;
   font-weight: 600;
   padding: 12px 28px;
-  border-radius: 30px;
-  border: none;
+  border-radius: 10px;
+  border: 1px solid #ffffff;
   display: inline-flex;
   align-items: center;
   gap: 8px;
   cursor: pointer;
-  box-shadow: 0 4px 16px rgba(0, 86, 210, 0.25);
   transition: all 0.25s ease;
 }
 
@@ -2754,7 +2753,8 @@ button {
 }
 
 .faq-cta-card {
-  width: 401px;
+  width: 100%;
+  max-width: 401px;
   height: 69px;
   background: #0e3461;
   border-radius: 248px 250px 250px 0;
@@ -3313,5 +3313,463 @@ button {
 
   .recruiters-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================
+   RESPONSIVE ENHANCEMENTS — ALL SECTIONS
+   ============================================ */
+
+/* --- 768px: Tablet portrait fixes --- */
+@media (max-width: 768px) {
+  /* Hero stats should wrap gracefully between 481–768px */
+  .hero-stats-row {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  /* Growth analytics board: single-column donut+bar on tablets */
+  .growth-board-content {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    justify-items: center;
+  }
+
+  .growth-chart-col {
+    max-width: 100%;
+  }
+
+  .domain-legend-col {
+    width: 100%;
+    max-width: 360px;
+    padding-left: 0;
+  }
+
+  /* Top header bar: shrink social icons + right text */
+  .top-bar-left .follow-text {
+    font-size: 11px;
+  }
+
+  .social-circle-btn {
+    width: 20px;
+    height: 20px;
+  }
+
+  .social-circle-btn svg {
+    width: 10px;
+    height: 10px;
+  }
+
+  /* Alumni card shadow padding compensation */
+  .alumni-cards-grid {
+    padding: 8px 4px 14px 10px;
+  }
+
+  /* Footer bottom links wrap */
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .footer-bottom-links {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+}
+
+/* --- 480px: Mobile fixes --- */
+@media (max-width: 480px) {
+  /* Top header bar: hide follow text, keep icons compact */
+  .top-header-bar {
+    height: 32px;
+  }
+
+  .top-bar-left {
+    padding: 0 8px;
+    gap: 4px;
+  }
+
+  .top-bar-left .follow-text {
+    display: none;
+  }
+
+  .top-bar-right {
+    padding: 0 8px;
+  }
+
+  .welcome-text {
+    font-size: 10px;
+    gap: 4px;
+  }
+
+  /* Adjust hero top padding for smaller header */
+  .hero {
+    padding-top: calc(var(--navbar-height) + 32px + 28px);
+  }
+
+  /* Hero title smaller for narrow screens */
+  .hero-title {
+    font-size: 1.85rem;
+    margin-bottom: 14px;
+  }
+
+  .hero-description {
+    font-size: 0.88rem;
+    margin-bottom: 22px;
+  }
+
+  /* Hero action buttons stack */
+  .hero-action-buttons {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .hero-action-buttons .btn-talk,
+  .hero-action-buttons .btn-download-report {
+    font-size: 0.88rem;
+    padding: 11px 18px;
+  }
+
+  /* Showcase cards: adjust height on mobile */
+  .showcase-top {
+    height: 160px;
+  }
+
+  /* LinkedIn section mobile */
+  .linkedin-section {
+    padding: 40px 0 50px;
+  }
+
+  .linkedin-nav-controls {
+    align-self: flex-end;
+  }
+
+  .linkedin-arrow-btn {
+    width: 38px;
+    height: 38px;
+  }
+
+  /* Career section mobile */
+  .career-section {
+    padding: 45px 0 55px;
+  }
+
+  .career-main-title {
+    font-size: 24px;
+  }
+
+  .career-arrow-btn {
+    width: 38px;
+    height: 38px;
+  }
+
+  .transform-card-content {
+    padding: 18px 14px 14px;
+  }
+
+  .transform-card-banner {
+    padding: 11px 14px;
+  }
+
+  .hike-amount {
+    font-size: 12px;
+  }
+
+  .profile-link {
+    font-size: 12px;
+  }
+
+  /* Placement support mobile */
+  .placement-support-section {
+    padding: 40px 0 55px;
+  }
+
+  .growth-analytics-board {
+    padding: 22px 14px;
+    border-radius: 16px;
+  }
+
+  .growth-board-title {
+    font-size: 20px;
+  }
+
+  .growth-board-subtitle {
+    font-size: 13px;
+  }
+
+  /* Alumni section mobile */
+  .alumni-section {
+    padding: 40px 0 55px;
+  }
+
+  .alumni-card {
+    box-shadow: -5px 5px 0 0 #CBCBCB;
+  }
+
+  .alumni-card:hover {
+    box-shadow: -7px 8px 0 0 #B0B7C3;
+  }
+
+  .alumni-cards-grid {
+    padding: 6px 2px 12px 8px;
+  }
+
+  .alumni-card-body {
+    padding: 18px 12px 12px;
+  }
+
+  .alumni-avatar {
+    width: 60px;
+    height: 60px;
+  }
+
+  .alumni-name {
+    font-size: 14px;
+  }
+
+  .alumni-role {
+    font-size: 12px;
+  }
+
+  .alumni-card-footer {
+    height: 55px;
+    padding: 6px 12px;
+  }
+
+  .alumni-company-logo {
+    max-height: 36px;
+    max-width: 110px;
+  }
+
+  .btn-download-report {
+    font-size: 13px;
+    padding: 10px 22px;
+  }
+
+  /* Locations section mobile */
+  .locations-section {
+    padding: 40px 0 55px;
+  }
+
+  .locations-title {
+    font-size: 22px;
+  }
+
+  .locations-subtitle {
+    font-size: 14px;
+  }
+
+  .location-stat-card {
+    padding: 12px 6px 10px;
+  }
+
+  .stat-pill {
+    font-size: 14px;
+    padding: 2px 10px;
+  }
+
+  .stat-region-name {
+    font-size: 12px;
+  }
+
+  .india-map-img {
+    max-width: 260px;
+  }
+
+  /* Why section mobile */
+  .why-section {
+    padding: 40px 0 50px;
+  }
+
+  .why-title {
+    font-size: 22px;
+  }
+
+  .why-subtitle {
+    font-size: 14px;
+  }
+
+  .why-card {
+    padding: 22px 18px 20px;
+  }
+
+  .why-card-title {
+    font-size: 17px;
+  }
+
+  .why-card-desc {
+    font-size: 13.5px;
+  }
+
+  /* Reviews section mobile */
+  .reviews-section {
+    padding: 40px 0 50px;
+  }
+
+  .reviews-title {
+    font-size: 22px;
+  }
+
+  .review-nav-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .review-dark-card {
+    padding: 22px 16px 20px;
+    border-radius: 28px 28px 28px 0;
+  }
+
+  .review-avatar-img,
+  .review-avatar-initial {
+    width: 44px;
+    height: 44px;
+  }
+
+  .review-user-name {
+    font-size: 15px;
+  }
+
+  .review-user-role {
+    font-size: 12px;
+  }
+
+  .review-quote-text {
+    font-size: 13px;
+  }
+
+  .review-view-more {
+    font-size: 13px;
+  }
+
+  /* FAQ section mobile */
+  .faq-section {
+    padding: 40px 0 50px;
+  }
+
+  .faq-title {
+    font-size: 22px;
+  }
+
+  .faq-q-text {
+    font-size: 13.5px;
+  }
+
+  .faq-answer-content {
+    font-size: 13px;
+    padding: 14px 16px 16px;
+  }
+
+  /* FAQ CTA card: full-width instead of hardcoded 401px */
+  .faq-cta-card {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 16px;
+    height: auto;
+    padding: 14px 18px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .faq-cta-text {
+    font-size: 14px;
+  }
+
+  .faq-enquire-btn {
+    align-self: stretch;
+    text-align: center;
+    justify-content: center;
+  }
+
+  /* CTA Section mobile */
+  .cta-section {
+    padding: 50px 0;
+  }
+
+  .cta-buttons .btn-primary,
+  .cta-buttons .btn-outline-white {
+    padding: 14px 28px;
+    font-size: 0.9rem;
+  }
+
+  /* Footer mobile */
+  .footer {
+    padding: 40px 0 20px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .footer-column h4 {
+    margin-bottom: 12px;
+  }
+
+  .footer-bottom-links {
+    gap: 10px;
+  }
+}
+
+/* --- 360px: Very small screen fixes --- */
+@media (max-width: 360px) {
+  .hero-title {
+    font-size: 1.6rem;
+  }
+
+  .hero-description {
+    font-size: 0.82rem;
+  }
+
+  .hero-action-buttons .btn-talk,
+  .hero-action-buttons .btn-download-report {
+    font-size: 0.82rem;
+    padding: 10px 14px;
+  }
+
+  .alumni-cards-grid {
+    grid-template-columns: 1fr;
+    padding: 6px 2px 12px 8px;
+  }
+
+  .location-cards-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .faq-cta-card {
+    padding: 12px 14px;
+  }
+
+  .faq-cta-text {
+    font-size: 13px;
+  }
+
+  .growth-analytics-board {
+    padding: 18px 12px;
+  }
+
+  .growth-board-title {
+    font-size: 18px;
+  }
+
+  .review-dark-card {
+    padding: 18px 14px 16px;
+    border-radius: 22px 22px 22px 0;
+  }
+
+  .career-transform-card {
+    border-radius: 14px;
+  }
+
+  .transform-card-banner {
+    border-radius: 0 0 13px 13px;
+    padding: 10px 12px;
+    flex-direction: column;
+    gap: 6px;
+    align-items: flex-start;
   }
 }
