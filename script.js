@@ -76,6 +76,29 @@ function initHeroCarousel() {
       updateHeroCarousel();
     });
 
+    // Touch swipe support for mobile
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    placementCardsGrid.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].clientX;
+      touchStartY = e.changedTouches[0].clientY;
+    }, { passive: true });
+
+    placementCardsGrid.addEventListener('touchend', (e) => {
+      const touchEndX = e.changedTouches[0].clientX;
+      const touchEndY = e.changedTouches[0].clientY;
+      const diffX = touchEndX - touchStartX;
+      const diffY = touchEndY - touchStartY;
+      if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+        if (diffX < 0) {
+          boardNext?.click();
+        } else {
+          boardPrev?.click();
+        }
+      }
+    }, { passive: true });
+
     window.addEventListener('resize', updateHeroCarousel);
     updateHeroCarousel();
   }
