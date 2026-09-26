@@ -679,7 +679,7 @@ button {
 .hero-visual {
   position: relative;
   z-index: 1;
-  height: 334px;
+  height: 434px;
   width: 100%;
   max-width: 580px;
   min-width: 0;
@@ -734,7 +734,7 @@ button {
 .showcase-top {
   background: #051336;
   position: relative;
-  height: 135px;
+  height: 150px;
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -795,7 +795,7 @@ button {
 
 .showcase-bottom {
   background: #FFFFFF;
-  padding: 10px 12px 12px;
+  padding: 10px 12px 45px;
   text-align: left;
 }
 
