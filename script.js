@@ -25,83 +25,217 @@ function initMobileMenu() {
 }
 
 // ============================================
+// HELPER: SEAMLESS 360-DEGREE INFINITE CAROUSEL
+// ============================================
+function createInfiniteCarousel({
+  track,
+  cardSelector,
+  prevBtn,
+  nextBtn,
+  transitionDuration = 450,
+  transitionTiming = 'cubic-bezier(0.25, 1, 0.5, 1)',
+  getVisibleCount = () => 1,
+  onIndexChange
+}) {
+  if (!track) return null;
+  const originalCards = Array.from(track.querySelectorAll(cardSelector));
+  const N = originalCards.length;
+  if (N <= 1) return null;
+
+  // 1. Prepend clones of all original cards
+  const prependFrag = document.createDocumentFragment();
+  originalCards.forEach((card) => {
+    const clone = card.cloneNode(true);
+    clone.classList.add('carousel-clone', 'clone-prepend');
+    clone.setAttribute('aria-hidden', 'true');
+    clone.removeAttribute('id');
+    clone.querySelectorAll('[id]').forEach((el) => el.removeAttribute('id'));
+    prependFrag.appendChild(clone);
+  });
+  track.insertBefore(prependFrag, originalCards[0]);
+
+  // 2. Append clones of all original cards
+  const appendFrag = document.createDocumentFragment();
+  originalCards.forEach((card) => {
+    const clone = card.cloneNode(true);
+    clone.classList.add('carousel-clone', 'clone-append');
+    clone.setAttribute('aria-hidden', 'true');
+    clone.removeAttribute('id');
+    clone.querySelectorAll('[id]').forEach((el) => el.removeAttribute('id'));
+    appendFrag.appendChild(clone);
+  });
+  track.appendChild(appendFrag);
+
+  // Logical index: 0 corresponds to first real card (DOM index N)
+  let currentIndex = 0;
+  let fallbackTimer = null;
+  let lastClickTime = 0;
+  const throttleMs = 120;
+  const transitionCss = `transform ${transitionDuration}ms ${transitionTiming}`;
+
+  function getStep() {
+    const children = track.children;
+    if (children.length > N + 1) {
+      const r0 = children[N].getBoundingClientRect();
+      const r1 = children[N + 1].getBoundingClientRect();
+      const diff = r1.left - r0.left;
+      if (diff > 0) return diff;
+    }
+    const first = track.querySelector(cardSelector);
+    if (first) {
+      const gap = parseFloat(window.getComputedStyle(track).gap) || 0;
+      return first.getBoundingClientRect().width + gap;
+    }
+    return 0;
+  }
+
+  function applyPosition(animated) {
+    if (animated) {
+      track.style.transition = transitionCss;
+    } else {
+      track.style.transition = 'none';
+    }
+    const step = getStep();
+    const shift = (N + currentIndex) * step;
+    track.style.transform = `translateX(-${shift}px)`;
+    if (track.parentElement && track.parentElement.scrollLeft !== 0) {
+      track.parentElement.scrollLeft = 0;
+    }
+    if (!animated) {
+      void track.offsetHeight; // synchronous layout flush
+      track.style.transition = '';
+    }
+  }
+
+  function checkBoundary() {
+    clearTimeout(fallbackTimer);
+    const normalized = ((currentIndex % N) + N) % N;
+    if (currentIndex !== normalized) {
+      track.style.transition = 'none';
+      currentIndex = normalized;
+      const step = getStep();
+      const shift = (N + currentIndex) * step;
+      track.style.transform = `translateX(-${shift}px)`;
+      void track.offsetHeight;
+      track.style.transition = '';
+    }
+    if (onIndexChange) {
+      onIndexChange(((currentIndex % N) + N) % N, N);
+    }
+  }
+
+  function moveTo(index) {
+    currentIndex = index;
+    applyPosition(true);
+    if (onIndexChange) {
+      onIndexChange(((currentIndex % N) + N) % N, N);
+    }
+
+    clearTimeout(fallbackTimer);
+    fallbackTimer = setTimeout(checkBoundary, transitionDuration + 80);
+  }
+
+  function next() {
+    const now = Date.now();
+    if (now - lastClickTime < throttleMs) return;
+    lastClickTime = now;
+
+    const visible = getVisibleCount();
+    // Safety clamp to never exceed cloned buffer even under rapid spam
+    if (currentIndex >= 2 * N - visible) {
+      checkBoundary();
+    }
+    moveTo(currentIndex + 1);
+  }
+
+  function prev() {
+    const now = Date.now();
+    if (now - lastClickTime < throttleMs) return;
+    lastClickTime = now;
+
+    if (currentIndex <= -N) {
+      checkBoundary();
+    }
+    moveTo(currentIndex - 1);
+  }
+
+  nextBtn?.addEventListener('click', (e) => {
+    e.preventDefault();
+    next();
+  });
+
+  prevBtn?.addEventListener('click', (e) => {
+    e.preventDefault();
+    prev();
+  });
+
+  track.addEventListener('transitionend', (e) => {
+    if (e.target !== track || e.propertyName !== 'transform') return;
+    checkBoundary();
+  });
+
+  // Touch Swipe Support
+  let touchStartX = 0;
+  let touchStartY = 0;
+  track.addEventListener('touchstart', (e) => {
+    if (!e.touches || e.touches.length === 0) return;
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  track.addEventListener('touchend', (e) => {
+    if (!e.changedTouches || e.changedTouches.length === 0) return;
+    const diffX = e.changedTouches[0].clientX - touchStartX;
+    const diffY = e.changedTouches[0].clientY - touchStartY;
+    if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+      if (diffX < 0) {
+        next();
+      } else {
+        prev();
+      }
+    }
+  }, { passive: true });
+
+  // Window Resize & Page Load repositioning
+  window.addEventListener('resize', () => {
+    applyPosition(false);
+  });
+  window.addEventListener('load', () => {
+    applyPosition(false);
+  });
+
+  // Initial positioning
+  applyPosition(false);
+  if (onIndexChange) {
+    onIndexChange(0, N);
+  }
+
+  return {
+    next,
+    prev,
+    goTo: (idx) => moveTo(idx),
+    checkBoundary,
+    getCurrentIndex: () => currentIndex
+  };
+}
+
+// ============================================
 // 2. HERO SHOWCASE CAROUSEL
 // ============================================
 function initHeroCarousel() {
   const placementCardsGrid = document.getElementById('placementCardsGrid');
-  const boardCards = placementCardsGrid ? placementCardsGrid.querySelectorAll('.showcase-card') : [];
   const boardPrev = document.getElementById('boardPrev');
   const boardNext = document.getElementById('boardNext');
 
-  if (placementCardsGrid && boardCards.length > 0) {
-    const totalHeroCards = boardCards.length;
-    let heroCardIndex = 0;
-
-    function getHeroVisibleCount() {
-      if (window.innerWidth <= 576) return 1;
-      return 2;
-    }
-
-    function updateHeroCarousel() {
-      const visibleCount = getHeroVisibleCount();
-      const maxIndex = Math.max(0, totalHeroCards - visibleCount);
-      if (heroCardIndex > maxIndex) heroCardIndex = 0;
-      if (heroCardIndex < 0) heroCardIndex = maxIndex;
-
-      const cardWidth = boardCards[0].getBoundingClientRect().width;
-      const gap = 16;
-      const shift = heroCardIndex * (cardWidth + gap);
-      placementCardsGrid.style.transform = `translateX(-${shift}px)`;
-    }
-
-    boardNext?.addEventListener('click', () => {
-      const visibleCount = getHeroVisibleCount();
-      const maxIndex = Math.max(0, totalHeroCards - visibleCount);
-      if (heroCardIndex >= maxIndex) {
-        heroCardIndex = 0;
-      } else {
-        heroCardIndex++;
-      }
-      updateHeroCarousel();
-    });
-
-    boardPrev?.addEventListener('click', () => {
-      const visibleCount = getHeroVisibleCount();
-      const maxIndex = Math.max(0, totalHeroCards - visibleCount);
-      if (heroCardIndex <= 0) {
-        heroCardIndex = maxIndex;
-      } else {
-        heroCardIndex--;
-      }
-      updateHeroCarousel();
-    });
-
-    // Touch swipe support for mobile
-    let touchStartX = 0;
-    let touchStartY = 0;
-
-    placementCardsGrid.addEventListener('touchstart', (e) => {
-      touchStartX = e.changedTouches[0].clientX;
-      touchStartY = e.changedTouches[0].clientY;
-    }, { passive: true });
-
-    placementCardsGrid.addEventListener('touchend', (e) => {
-      const touchEndX = e.changedTouches[0].clientX;
-      const touchEndY = e.changedTouches[0].clientY;
-      const diffX = touchEndX - touchStartX;
-      const diffY = touchEndY - touchStartY;
-      if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
-        if (diffX < 0) {
-          boardNext?.click();
-        } else {
-          boardPrev?.click();
-        }
-      }
-    }, { passive: true });
-
-    window.addEventListener('resize', updateHeroCarousel);
-    updateHeroCarousel();
-  }
+  createInfiniteCarousel({
+    track: placementCardsGrid,
+    cardSelector: '.showcase-card',
+    prevBtn: boardPrev,
+    nextBtn: boardNext,
+    transitionDuration: 450,
+    transitionTiming: 'cubic-bezier(0.25, 1, 0.5, 1)',
+    getVisibleCount: () => (window.innerWidth <= 576 ? 1 : 2)
+  });
 }
 
 // ============================================
@@ -112,56 +246,21 @@ function initLinkedInCarousel() {
   const linkedinNext = document.getElementById('linkedinNext');
   const linkedinPrev = document.getElementById('linkedinPrev');
 
-  if (linkedinCardsGrid) {
-    const cards = linkedinCardsGrid.querySelectorAll('.linkedin-student-card');
-    const totalCards = cards.length;
-    let linkedinIndex = 0;
-
-    function getVisibleCount() {
-      if (window.innerWidth <= 680) return 1;
-      if (window.innerWidth <= 992) return 2;
-      return 3;
-    }
-
-    function updateLinkedInCarousel() {
-      const visibleCount = getVisibleCount();
-      const maxIndex = Math.max(0, totalCards - visibleCount);
-      if (linkedinIndex > maxIndex) linkedinIndex = 0;
-      if (linkedinIndex < 0) linkedinIndex = maxIndex;
-
-      if (cards.length > 0) {
-        const cardWidth = cards[0].getBoundingClientRect().width;
-        const gap = 24;
-        const shift = linkedinIndex * (cardWidth + gap);
-        linkedinCardsGrid.style.transform = `translateX(-${shift}px)`;
-      }
-    }
-
-    linkedinNext?.addEventListener('click', () => {
-      const visibleCount = getVisibleCount();
-      const maxIndex = Math.max(0, totalCards - visibleCount);
-      if (linkedinIndex >= maxIndex) {
-        linkedinIndex = 0;
-      } else {
-        linkedinIndex++;
-      }
-      updateLinkedInCarousel();
-    });
-
-    linkedinPrev?.addEventListener('click', () => {
-      const visibleCount = getVisibleCount();
-      const maxIndex = Math.max(0, totalCards - visibleCount);
-      if (linkedinIndex <= 0) {
-        linkedinIndex = maxIndex;
-      } else {
-        linkedinIndex--;
-      }
-      updateLinkedInCarousel();
-    });
-
-    window.addEventListener('resize', updateLinkedInCarousel);
-    updateLinkedInCarousel();
+  function getLinkedInVisibleCount() {
+    if (window.innerWidth <= 576) return 1;
+    if (window.innerWidth <= 1024) return 2;
+    return 3;
   }
+
+  createInfiniteCarousel({
+    track: linkedinCardsGrid,
+    cardSelector: '.linkedin-student-card',
+    prevBtn: linkedinPrev,
+    nextBtn: linkedinNext,
+    transitionDuration: 450,
+    transitionTiming: 'cubic-bezier(0.25, 1, 0.5, 1)',
+    getVisibleCount: getLinkedInVisibleCount
+  });
 }
 
 // ============================================
@@ -188,69 +287,52 @@ function initReviewCarousel() {
   const reviewsTrack = document.getElementById('reviewsTrack');
   const reviewNext = document.getElementById('reviewNext');
   const reviewPrev = document.getElementById('reviewPrev');
-  const reviewDots = document.querySelectorAll('.review-dot');
+  const reviewDots = Array.from(document.querySelectorAll('.review-dot'));
 
-  if (reviewsTrack) {
-    const cards = reviewsTrack.querySelectorAll('.review-dark-card');
-    const totalReviewCards = cards.length;
-    let currentReviewIndex = 0;
+  function getReviewVisibleCount() {
+    if (window.innerWidth <= 576) return 1;
+    if (window.innerWidth <= 1024) return 2;
+    return 3;
+  }
 
-    function getReviewVisibleCount() {
-      if (window.innerWidth <= 680) return 1;
-      if (window.innerWidth <= 992) return 2;
-      return 3;
-    }
-
-    function updateReviewCarousel() {
-      const visibleCount = getReviewVisibleCount();
-      const maxIndex = Math.max(0, totalReviewCards - visibleCount);
-      if (currentReviewIndex > maxIndex) currentReviewIndex = 0;
-      if (currentReviewIndex < 0) currentReviewIndex = maxIndex;
-
-      if (cards.length > 0) {
-        const cardWidth = cards[0].getBoundingClientRect().width;
-        const gap = 20;
-        const shift = currentReviewIndex * (cardWidth + gap);
-        reviewsTrack.style.transform = `translateX(-${shift}px)`;
-      }
-
-      reviewDots.forEach((dot, idx) => {
-        dot.classList.toggle('active', idx === Math.min(currentReviewIndex, reviewDots.length - 1));
-      });
-    }
-
-    reviewNext?.addEventListener('click', () => {
-      const visibleCount = getReviewVisibleCount();
-      const maxIndex = Math.max(0, totalReviewCards - visibleCount);
-      if (currentReviewIndex >= maxIndex) {
-        currentReviewIndex = 0;
-      } else {
-        currentReviewIndex++;
-      }
-      updateReviewCarousel();
+  function updateReviewDots(normalizedIndex, totalCards) {
+    if (!reviewDots.length) return;
+    const segmentSize = Math.ceil(totalCards / reviewDots.length);
+    const activeDotIdx = Math.min(Math.floor(normalizedIndex / segmentSize), reviewDots.length - 1);
+    reviewDots.forEach((dot, idx) => {
+      dot.classList.toggle('active', idx === activeDotIdx);
     });
+  }
 
-    reviewPrev?.addEventListener('click', () => {
-      const visibleCount = getReviewVisibleCount();
-      const maxIndex = Math.max(0, totalReviewCards - visibleCount);
-      if (currentReviewIndex <= 0) {
-        currentReviewIndex = maxIndex;
-      } else {
-        currentReviewIndex--;
-      }
-      updateReviewCarousel();
-    });
+  const carousel = createInfiniteCarousel({
+    track: reviewsTrack,
+    cardSelector: '.review-dark-card',
+    prevBtn: reviewPrev,
+    nextBtn: reviewNext,
+    transitionDuration: 400,
+    transitionTiming: 'cubic-bezier(0.25, 1, 0.5, 1)',
+    getVisibleCount: getReviewVisibleCount,
+    onIndexChange: updateReviewDots
+  });
+
+  // Dot click navigation with circular shortest path
+  if (carousel && reviewDots.length) {
+    const originalCards = reviewsTrack.querySelectorAll('.review-dark-card:not(.carousel-clone)');
+    const N = originalCards.length || 8;
+    const segmentSize = Math.ceil(N / reviewDots.length);
 
     reviewDots.forEach((dot) => {
-      dot.addEventListener('click', () => {
-        const idx = parseInt(dot.getAttribute('data-index') || '0', 10);
-        currentReviewIndex = idx;
-        updateReviewCarousel();
+      dot.addEventListener('click', (e) => {
+        e.preventDefault();
+        const dotIdx = parseInt(dot.getAttribute('data-index') || '0', 10);
+        const targetCard = Math.min(dotIdx * segmentSize, N - 1);
+        const currentNorm = ((carousel.getCurrentIndex() % N) + N) % N;
+        let delta = targetCard - currentNorm;
+        if (delta > N / 2) delta -= N;
+        if (delta < -N / 2) delta += N;
+        carousel.goTo(carousel.getCurrentIndex() + delta);
       });
     });
-
-    window.addEventListener('resize', updateReviewCarousel);
-    updateReviewCarousel();
   }
 }
 
