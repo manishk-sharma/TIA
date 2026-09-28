@@ -2881,8 +2881,8 @@ button {
 }
 
 .review-avatar-img {
-  width: 52px;
-  height: 52px;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
   border: 2.5px solid #ffffff;
   object-fit: cover;
