@@ -1520,9 +1520,9 @@ button {
   background-color: #0157B0;
   color: #FFFFFF;
   border: none;
-  padding: 15px 40px;
+  padding: 20px 30px;
   border-radius: 32px;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.25s ease;
@@ -1777,8 +1777,8 @@ button {
 
 .donut-center-circle {
   position: absolute;
-  top: 45%;
-  left: 45%;
+  top: 46%;
+  left: 46%;
   transform: translate(-50%, -50%);
   width: 138px;
   height: 138px;
@@ -2086,7 +2086,7 @@ button {
   }
 
   .center-brand-logo {
-    width: 52px;
+    width: 70px;
   }
 }
 
@@ -2151,7 +2151,7 @@ button {
   }
 
   .center-brand-logo {
-    width: 44px;
+    width: 54px;
   }
 
   .domain-legend-list {
