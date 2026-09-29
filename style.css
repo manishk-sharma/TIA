@@ -2838,16 +2838,10 @@ button {
   border: 1.5px solid #F4A707;
   color: #ffffff;
 }
-.review-nav-btn.next {
-  background-color: #F8971D;
-  border: 1.5px solid #F8971D;
-}
-
-
 
 .review-nav-btn.prev:hover {
-  background: #eff6ff;
-  transform: translateX(-2px);
+  background-color: #e58712;
+  transform: scale(1.06);
 }
 
 .review-nav-btn.next {
@@ -2857,9 +2851,8 @@ button {
 }
 
 .review-nav-btn.next:hover {
-  background: #0043a6;
-  border-color: #0043a6;
-  transform: translateX(2px);
+  background-color: #0045ab;
+  transform: scale(1.06);
 }
 
 .reviews-carousel-container {
