@@ -969,8 +969,8 @@ button {
 }
 
 .linkedin-arrow-btn {
-  width: 44px;
-  height: 44px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   border: none;
   display: inline-flex;
@@ -2822,8 +2822,8 @@ button {
 }
 
 .review-nav-btn {
-  width: 42px;
-  height: 42px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -2834,10 +2834,16 @@ button {
 }
 
 .review-nav-btn.prev {
-  background: #ffffff;
-  border: 1.5px solid #0157B0;
-  color: #0157B0;
+  background: #F4A707;
+  border: 1.5px solid #F4A707;
+  color: #ffffff;
 }
+.review-nav-btn.next {
+  background-color: #F8971D;
+  border: 1.5px solid #F8971D;
+}
+
+
 
 .review-nav-btn.prev:hover {
   background: #eff6ff;
