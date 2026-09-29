@@ -722,8 +722,10 @@ button {
 
 .showcase-card {
   flex: 0 0 calc((100% - 14px) / 2);
-  min-width: calc((100% - 14px) / 2);
-  max-width: calc((100% - 14px) / 2);
+  /* min-width: calc((100% - 14px) / 2);
+  max-width: calc((100% - 14px) / 2); */
+  width: 258.389px !important;
+  height: 282.566px !important;
   box-sizing: border-box;
   display: flex;
   background: #FFFFFF;
@@ -3782,11 +3784,11 @@ button {
 
   .showcase-card {
     flex: 0 0 calc((100% - 14px) / 2) !important;
-    /* min-width: 0 !important;
+    /*min-width: 0 !important;
     max-width: calc((100% - 14px) / 2) !important;
     width: calc((100% - 14px) / 2) !important; */
-    width: 258.389px;
-    height: 282.566px;
+    width: 258.389px !important;
+    height: 282.566px !important;
     border-radius: 16px !important;
     background: #FFFFFF !important;
     box-sizing: border-box !important;
@@ -4370,8 +4372,10 @@ button {
   /* Showcase cards: adjust height on mobile */
   .showcase-card {
     flex: 0 0 100% !important;
-    min-width: 0 !important;
-    max-width: 100% !important;
+    /* min-width: 0 !important;
+    max-width: 100% !important; */
+    width: 258.389px !important;
+    height: 282.566px !important;
     width: 100% !important;
     border-radius: 16px !important;
     overflow: hidden !important;
