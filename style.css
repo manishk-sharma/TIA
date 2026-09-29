@@ -789,11 +789,23 @@ button {
   z-index: 3;
 }
 
+.card-linkedin-icon a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  line-height: 0;
+  text-decoration: none;
+}
+
 .card-linkedin-icon svg {
+  display: block;
   width: 24px;
   height: 24px;
   aspect-ratio: 1/1;
   fill: #0077B5;
+  margin: auto;
 }
 
 .showcase-bottom {
@@ -839,28 +851,26 @@ button {
   z-index: 1;
 }
 
-.watermark-title
-
- {
-    position: absolute;
-    left: 5px;
-    bottom: -60px;
-    font-size: 49px;
-    font-weight: 900;
-    line-height: 1;
-    letter-spacing: -0.5px;
-    text-transform: uppercase;
-    white-space: nowrap;
-    transform: scaleY(2.0);
-    transform-origin: bottom left;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.03) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-family: 'Inter', sans-serif;
-    user-select: none;
-    pointer-events: none;
-    z-index: 0;
+.watermark-title {
+  position: absolute;
+  left: 5px;
+  bottom: -45px;
+  font-size: 49px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.5px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transform: scaleY(2.0);
+  transform-origin: bottom left;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.03) 60%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-family: 'Inter', sans-serif;
+  user-select: none;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .board-nav-buttons {
@@ -915,7 +925,7 @@ button {
    3. LINKEDIN POSTS SECTION
    ============================================ */
 .linkedin-section {
-  padding: 30px 0 70px;
+  padding: 30px 0 30px;
   background: #FFFFFF;
 }
 
@@ -1144,7 +1154,7 @@ button {
    4. CAREER BEFORE & AFTER SECTION
    ============================================ */
 .career-section {
-  padding: 30px 0 80px;
+  padding: 30px 0 30px;
   background: #FFFFFF;
 }
 
@@ -1326,7 +1336,7 @@ button {
   width: 100%;
 }
 
-.transition-comparison > svg,
+.transition-comparison>svg,
 .step-arrow {
   margin-top: 29px;
   width: 14px;
@@ -1549,7 +1559,7 @@ button {
    5. PLACEMENT SUPPORT SECTION
    ============================================ */
 .placement-support-section {
-  padding: 30px 0 75px;
+  padding: 30px 0 30px;
   background: #FFFFFF;
 }
 
@@ -1898,7 +1908,7 @@ button {
 
 @media (max-width: 768px) {
   .placement-support-section {
-    padding: 35px 0 50px;
+    padding: 30px 0 30px;
   }
 
   .support-main-title {
@@ -1946,7 +1956,7 @@ button {
 
 @media (max-width: 480px) {
   .placement-support-section {
-    padding: 30px 0 45px;
+    padding: 30px 0 30px;
   }
 
   .support-header-area {
@@ -2159,7 +2169,7 @@ button {
    7. ALUMNI SECTION
    ============================================ */
 .alumni-section {
-  padding: 10px 0 75px;
+  padding: 10px 0 30px;
   background: #FFFFFF;
 }
 
@@ -2331,7 +2341,7 @@ button {
    8. LOCATIONS SECTION
    ============================================ */
 .locations-section {
-  padding: 30px 0 75px;
+  padding: 30px 0 30px;
   background: #FFFFFF;
 }
 
@@ -2509,7 +2519,7 @@ button {
    9. RECRUITERS SECTION
    ============================================ */
 .recruiters-section {
-  padding: 30px 0 65px;
+  padding: 30px 0 30px;
   background: #ffffff;
 }
 
@@ -2571,7 +2581,7 @@ button {
 
 @media (max-width: 768px) {
   .recruiters-section {
-    padding: 35px 0 45px;
+    padding: 35px 0 30px;
   }
 
   .recruiters-title {
@@ -2618,7 +2628,7 @@ button {
    10. WHY STUDENTS SECTION
    ============================================ */
 .why-section {
-  padding: 30px 0 75px;
+  padding: 30px 0 30px;
   background: #ffffff;
 }
 
@@ -2775,7 +2785,7 @@ button {
    11. REVIEWS SECTION
    ============================================ */
 .reviews-section {
-  padding: 30px 0 70px;
+  padding: 30px 0 30px;
   background: #ffffff;
 }
 
@@ -3038,7 +3048,7 @@ button {
    12. FAQ SECTION
    ============================================ */
 .faq-section {
-  padding: 30px 0 80px;
+  padding: 30px 0 30px;
   background: #ffffff;
 }
 
@@ -3881,7 +3891,7 @@ button {
   }
 
   .watermark-title {
-     position: absolute;
+    position: absolute;
     left: 5px;
     bottom: -40px;
     font-size: 49px;
@@ -3892,7 +3902,7 @@ button {
     white-space: nowrap;
     transform: scaleY(2.0);
     transform-origin: bottom left;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.03) 100%);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.03) 60%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -4441,7 +4451,7 @@ button {
     white-space: nowrap;
     transform: scaleY(2.0);
     transform-origin: bottom left;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.03) 100%);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.03) 60%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -4881,7 +4891,7 @@ button {
   }
 
   .watermark-title {
-     position: absolute;
+    position: absolute;
     left: 5px;
     bottom: -60px;
     font-size: 30px;
@@ -4892,7 +4902,7 @@ button {
     white-space: nowrap;
     transform: scaleY(3.0);
     transform-origin: bottom left;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.03) 100%);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.03) 60%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
