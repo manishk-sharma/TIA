@@ -1637,7 +1637,7 @@ button {
   width: 100%;
   max-width: 1200px;
   min-height: 405px;
-  height: 435px;
+  height: 425px;
   box-sizing: border-box;
   background: #0F2B5C;
   border-radius: 20px;
@@ -1646,9 +1646,9 @@ button {
   /* box-shadow: 0 16px 36px rgba(11, 35, 86, 0.22); */
 }
 
-.growth-board-header {
+/* .growth-board-header {
   margin-bottom: 28px;
-}
+} */
 
 .growth-board-title {
   font-size: 24px;
@@ -1830,7 +1830,7 @@ button {
   left: 0;
   top: 0;
   bottom: 0;
-  width: 26px;
+  width: 35px;
   background: #FFFFFF;
   border-radius: 5px;
   box-sizing: border-box;
@@ -1850,8 +1850,8 @@ button {
 }
 
 .legend-indicator {
-  width: 16px;
-  height: 16px;
+  width: 24px;
+  height: 24px;
   border-radius: 4px;
   flex-shrink: 0;
   margin-left: 5px;
