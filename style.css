@@ -963,7 +963,7 @@ button {
 .linkedin-nav-controls {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 10px;
   margin-top: 6px;
   flex-shrink: 0;
 }
@@ -2175,6 +2175,7 @@ button {
   background: #FFFFFF;
 }
 
+.alumni-header-row,
 .alumni-header-area {
   text-align: center;
   max-width: 680px;
@@ -2197,11 +2198,56 @@ button {
   margin: 0;
 }
 
+.alumni-nav-controls {
+  display: none !important;
+}
+
+.alumni-arrow-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease, background-color 0.2s ease;
+}
+
+.alumni-arrow-btn.yellow-btn {
+  background-color: #F8971D;
+  color: #FFFFFF;
+}
+
+.alumni-arrow-btn.yellow-btn:hover {
+  background-color: #e58712;
+  transform: scale(1.06);
+}
+
+.alumni-arrow-btn.blue-btn {
+  background-color: #0157B0;
+  color: #FFFFFF;
+}
+
+.alumni-arrow-btn.blue-btn:hover {
+  background-color: #0045ab;
+  transform: scale(1.06);
+}
+
+.alumni-cards-viewport {
+  width: 100%;
+  overflow: visible;
+}
+
 .alumni-cards-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 15px 20px;
   padding: 8px 4px 14px 10px;
+}
+
+.alumni-cards-grid .carousel-clone {
+  display: none !important;
 }
 
 .alumni-card {
@@ -2311,31 +2357,162 @@ button {
   height: 16px;
 }
 
-@media (max-width: 1024px) {
+/* Laptop mode (1024px and above) - Keep grid, no slider */
+@media (min-width: 1024px) {
+  .alumni-nav-controls {
+    display: none !important;
+  }
+
+  .alumni-header-row {
+    text-align: center !important;
+    display: block !important;
+    max-width: 680px !important;
+    margin: 0 auto 36px !important;
+  }
+
+  .alumni-cards-viewport {
+    overflow: visible !important;
+    width: 100% !important;
+  }
+
   .alumni-cards-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 15px 20px !important;
+    transform: none !important;
+    width: 100% !important;
+    padding: 8px 4px 14px 10px !important;
+  }
+
+  .alumni-cards-grid .carousel-clone {
+    display: none !important;
+  }
+
+  .alumni-card {
+    width: auto !important;
+    flex: none !important;
+  }
+}
+
+/* Alumni slider in all modes except laptop (< 1024px) */
+@media (max-width: 1023px) {
+  .alumni-header-row {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: flex-end !important;
+    gap: 20px !important;
+    max-width: 100% !important;
+    margin: 0 0 28px 0 !important;
+    text-align: left !important;
+  }
+
+  .alumni-header-left {
+    flex: 1 !important;
+  }
+
+  .alumni-nav-controls {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    margin-top: 6px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .alumni-cards-viewport {
+    width: 100% !important;
+    overflow: hidden !important;
+    padding-top: 8px !important;
+    padding-bottom: 22px !important;
+  }
+
+  .alumni-cards-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    gap: 16px !important;
+    width: max-content !important;
+    padding: 8px 4px 18px 8px !important;
+    will-change: transform !important;
+  }
+
+  .alumni-cards-grid .carousel-clone {
+    display: flex !important;
+  }
+
+  /* Tablet landscape: 2 cards per view */
+  .alumni-card {
+    flex: 0 0 340px !important;
+    width: 340px !important;
+    max-width: 360px !important;
+    box-sizing: border-box !important;
   }
 }
 
 @media (max-width: 768px) {
-  .alumni-cards-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
+  .alumni-header-row {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 14px !important;
+    margin-bottom: 22px !important;
+  }
+
+  .alumni-nav-controls {
+    align-self: flex-end !important;
+  }
+
+  .alumni-arrow-btn {
+    width: 44px !important;
+    height: 44px !important;
   }
 
   .alumni-main-title {
-    font-size: 26px;
+    font-size: 26px !important;
+  }
+
+  .alumni-cards-grid {
+    gap: 14px !important;
+  }
+
+  /* Tablet portrait: 2 cards per view */
+  .alumni-card {
+    flex: 0 0 280px !important;
+    width: 280px !important;
+    max-width: 300px !important;
   }
 }
 
-@media (max-width: 480px) {
-  .alumni-cards-grid {
-    grid-template-columns: 1fr;
+@media (max-width: 576px) {
+  .alumni-header-row {
+    gap: 12px !important;
+    margin-bottom: 18px !important;
+  }
+
+  .alumni-arrow-btn {
+    width: 38px !important;
+    height: 38px !important;
   }
 
   .alumni-main-title {
-    font-size: 24px;
+    font-size: 24px !important;
+  }
+
+  /* Mobile: 1 card per view (full width) */
+  .alumni-card {
+    flex: 0 0 calc(100vw - 48px) !important;
+    width: calc(100vw - 48px) !important;
+    max-width: calc(100vw - 48px) !important;
+  }
+
+  .alumni-cards-grid {
+    gap: 12px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .alumni-card {
+    flex: 0 0 calc(100vw - 36px) !important;
+    width: calc(100vw - 36px) !important;
+    max-width: calc(100vw - 36px) !important;
   }
 }
 
@@ -2479,41 +2656,78 @@ button {
   filter: drop-shadow(0 8px 24px rgba(0, 86, 210, 0.08));
 }
 
-@media (max-width: 1024px) {
+/* All non-laptop modes (< 1024px): Map placed on top of cards */
+@media (max-width: 1023px) {
   .locations-wrapper {
-    grid-template-columns: 1fr;
-    gap: 36px;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 0 !important;
   }
 
   .locations-text-area {
-    align-items: center;
-    text-align: center;
+    display: contents !important;
+  }
+
+  .locations-title {
+    order: 1 !important;
+    text-align: center !important;
+    margin-bottom: 12px !important;
   }
 
   .locations-subtitle {
-    margin-left: auto;
-    margin-right: auto;
+    order: 2 !important;
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-bottom: 24px !important;
+  }
+
+  .locations-map-area {
+    order: 3 !important;
+    width: 100% !important;
+    margin: 0 auto 28px auto !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+
+  .location-cards-grid {
+    order: 4 !important;
+    width: 100% !important;
   }
 }
 
 @media (max-width: 768px) {
+  .locations-map-area {
+    margin: 0 auto 22px auto !important;
+  }
+
   .location-cards-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
   }
 
   .locations-title {
-    font-size: 26px;
+    font-size: 26px !important;
   }
 }
 
 @media (max-width: 480px) {
+  .locations-map-area {
+    margin: 0 auto 18px auto !important;
+  }
+
+  .india-map-img {
+    max-width: 280px !important;
+  }
+
   .location-cards-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
   }
 
   .locations-title {
-    font-size: 24px;
+    font-size: 22px !important;
   }
 }
 
@@ -2537,6 +2751,17 @@ button {
   margin: 0;
   letter-spacing: -0.3px;
   line-height: 1.25;
+}
+
+/* Base wrapper */
+.recruiters-slider-wrapper {
+  width: 100%;
+  position: relative;
+}
+
+/* Hide clones on desktop / laptop (>= 1024px) */
+.recruiter-clone {
+  display: none !important;
 }
 
 .recruiters-grid {
@@ -2574,14 +2799,94 @@ button {
   display: block;
 }
 
-@media (max-width: 1024px) {
+/* Laptop mode (1024px and above) - Keep grid, no slider */
+@media (min-width: 1024px) {
+  .recruiter-clone {
+    display: none !important;
+  }
+
+  .recruiters-slider-wrapper {
+    overflow: visible !important;
+    mask-image: none !important;
+    -webkit-mask-image: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+  }
+
   .recruiters-grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 14px;
+    display: grid !important;
+    grid-template-columns: repeat(6, 1fr) !important;
+    grid-template-rows: none !important;
+    grid-auto-flow: row !important;
+    gap: 16px !important;
+    width: 100% !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  .recruiter-card {
+    width: 183px !important;
+    height: 89px !important;
+  }
+}
+
+/* Continuous 3-line (3-row) marquee slider in all modes except laptop (< 1024px) */
+@media (max-width: 1023px) {
+  :root {
+    --recruiter-gap: 12px;
+  }
+
+  .recruiters-slider-wrapper {
+    width: 100% !important;
+    overflow: hidden !important;
+    position: relative !important;
+    padding: 6px 0 !important;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 5%, #000 95%, transparent 100%) !important;
+    mask-image: linear-gradient(to right, transparent 0%, #000 5%, #000 95%, transparent 100%) !important;
+  }
+
+  .recruiter-clone {
+    display: flex !important;
+  }
+
+  .recruiters-grid {
+    display: grid !important;
+    grid-template-rows: repeat(3, 1fr) !important;
+    grid-auto-flow: column !important;
+    grid-auto-columns: max-content !important;
+    width: max-content !important;
+    gap: var(--recruiter-gap, 12px) !important;
+    animation: recruitersMarquee 32s linear infinite !important;
+    will-change: transform;
+    cursor: grab;
+  }
+
+  .recruiters-grid:hover,
+  .recruiters-grid:active {
+    animation-play-state: paused !important;
+  }
+
+  .recruiter-card {
+    flex: 0 0 auto !important;
+    width: 156px !important;
+    height: 58px !important;
+    padding: 6px 12px !important;
+    border-radius: 12px !important;
+    box-sizing: border-box !important;
+  }
+
+  .recruiter-img {
+    max-width: 98px !important;
+    max-height: 28px !important;
   }
 }
 
 @media (max-width: 768px) {
+  :root {
+    --recruiter-gap: 10px;
+  }
+
   .recruiters-section {
     padding: 30px 0 30px;
   }
@@ -2591,38 +2896,70 @@ button {
     margin-bottom: 18px;
   }
 
+  .recruiters-slider-wrapper {
+    margin-left: -24px !important;
+    margin-right: -24px !important;
+    width: calc(100% + 48px) !important;
+    padding: 4px 0 !important;
+  }
+
   .recruiters-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
+    gap: var(--recruiter-gap, 10px) !important;
+    animation-duration: 28s !important;
   }
 
   .recruiter-card {
-    height: 60px;
-    padding: 8px 12px;
-    border-radius: 12px;
+    width: 144px !important;
+    height: 52px !important;
+    padding: 5px 10px !important;
+    border-radius: 11px !important;
   }
 
   .recruiter-img {
-    max-width: 90px;
-    max-height: 30px;
+    max-width: 88px !important;
+    max-height: 25px !important;
   }
 }
 
 @media (max-width: 480px) {
+  :root {
+    --recruiter-gap: 8px;
+  }
+
+  .recruiters-slider-wrapper {
+    margin-left: -16px !important;
+    margin-right: -16px !important;
+    width: calc(100% + 32px) !important;
+    padding: 4px 0 !important;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%) !important;
+    mask-image: linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%) !important;
+  }
+
   .recruiters-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    gap: var(--recruiter-gap, 8px) !important;
+    animation-duration: 25s !important;
   }
 
   .recruiter-card {
-    height: 54px;
-    padding: 6px 10px;
-    border-radius: 10px;
+    width: 134px !important;
+    height: 48px !important;
+    padding: 5px 8px !important;
+    border-radius: 10px !important;
   }
 
   .recruiter-img {
-    max-width: 80px;
-    max-height: 26px;
+    max-width: 78px !important;
+    max-height: 23px !important;
+  }
+}
+
+@keyframes recruitersMarquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(calc(-50% - (var(--recruiter-gap, 8px) / 2)));
   }
 }
 
@@ -2817,7 +3154,7 @@ button {
 .reviews-nav-arrows {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   flex-shrink: 0;
 }
 
@@ -3466,20 +3803,14 @@ button {
   }
 
   .recruiters-grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 
   .stats-content {
     grid-template-columns: 1fr;
   }
 
-  .locations-content {
-    grid-template-columns: 1fr;
-  }
 
-  .map-visual {
-    order: -1;
-  }
 
   .footer-grid {
     grid-template-columns: 1fr 1fr;
@@ -3492,6 +3823,7 @@ button {
   .hero .container {
     display: flex !important;
     flex-direction: column !important;
+    align-items: flex-start;
     gap: 0 !important;
   }
 
@@ -3673,9 +4005,6 @@ button {
     grid-template-columns: 1fr;
   }
 
-  .recruiters-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
 
   .faq-grid {
     grid-template-columns: 1fr;
@@ -3694,6 +4023,7 @@ button {
   .hero .container {
     display: flex !important;
     flex-direction: column !important;
+    align-items: flex-start;
     grid-template-columns: minmax(0, 1fr) !important;
     gap: 0 !important;
   }
@@ -4047,9 +4377,10 @@ button {
   }
 
   .board-circle-btn.filled {
-    background: #0077B5 !important;
-    border: none !important;
-    color: #FFFFFF !important;
+    background: #FFFFFF;
+    border: none;
+    color: #0B1F55;
+    font-weight: 700;
   }
 
   .board-circle-btn svg {
@@ -4061,7 +4392,7 @@ button {
 /* Mobile screens (576px and below) - Hero Card and Action Layout */
 @media (max-width: 576px) {
   .hero-title {
-    font-size: clamp(1.75rem, 6.5vw, 2.1rem);
+    font-size: clamp(2.75rem, 6.5vw, 2.1rem);
   }
 
   .hero-stats-row {
@@ -4145,9 +4476,6 @@ button {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .recruiters-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
 
   .location-stats {
     grid-template-columns: 1fr;
@@ -4193,9 +4521,6 @@ button {
     grid-template-columns: 1fr;
   }
 
-  .recruiters-grid {
-    grid-template-columns: 1fr;
-  }
 }
 
 /* ============================================
@@ -4301,7 +4626,7 @@ button {
 
   /* Hero title smaller for narrow screens */
   .hero-title {
-    font-size: clamp(1.65rem, 6.5vw, 1.95rem);
+    font-size: clamp(2.65rem, 6.5vw, 1.95rem);
     margin-bottom: 12px;
   }
 
@@ -4682,30 +5007,30 @@ button {
   }
 
   .alumni-card-body {
-    padding: 18px 12px 12px;
+    padding: 50px 16px 60px;
   }
 
   .alumni-avatar {
-    width: 60px;
-    height: 60px;
+    width: 100px;
+    height: 100px;
   }
 
   .alumni-name {
-    font-size: 14px;
+    font-size: 25px;
   }
 
   .alumni-role {
-    font-size: 12px;
+    font-size: 16px;
   }
 
   .alumni-card-footer {
-    height: 55px;
+    height: 80px;
     padding: 6px 12px;
   }
 
   .alumni-company-logo {
     max-height: 36px;
-    max-width: 110px;
+    max-width: 150px;
   }
 
   .alumni-cta-wrapper .btn-download-report,
@@ -4890,7 +5215,7 @@ button {
   }
 
   .hero-title {
-    font-size: 1.55rem;
+    font-size: 2.55rem;
   }
 
   .hero-description {
@@ -5050,7 +5375,6 @@ button {
   }
 
   .alumni-cards-grid {
-    grid-template-columns: 1fr;
     padding: 6px 2px 12px 8px;
   }
 
@@ -5087,7 +5411,7 @@ button {
   .transform-card-banner {
     border-radius: 0 0 13px 13px;
     padding: 10px 12px;
-    flex-direction: column;
+    /* flex-direction: column; */
     gap: 6px;
     align-items: flex-start;
   }

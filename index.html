@@ -1802,13 +1802,32 @@
         <!-- ===== 6. ALUMNI SECTION ===== -->
         <section class="alumni-section" id="alumni-section">
             <div class="container">
-                <div class="alumni-header-area reveal">
-                    <h2 class="alumni-main-title">Meet Our Alumni</h2>
-                    <p class="alumni-main-subtitle">From learning new skills to building careers in the technology
-                        industry, our alumni are now contributing across different roles and organizations.</p>
+                <div class="alumni-header-row reveal">
+                    <div class="alumni-header-left">
+                        <h2 class="alumni-main-title">Meet Our Alumni</h2>
+                        <p class="alumni-main-subtitle">From learning new skills to building careers in the technology
+                            industry, our alumni are now contributing across different roles and organizations.</p>
+                    </div>
+                    <div class="alumni-nav-controls" id="alumniNavControls">
+                        <button class="alumni-arrow-btn yellow-btn" id="alumniPrev" aria-label="Previous Alumni">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="19" y1="12" x2="5" y2="12"></line>
+                                <polyline points="12 19 5 12 12 5"></polyline>
+                            </svg>
+                        </button>
+                        <button class="alumni-arrow-btn blue-btn" id="alumniNext" aria-label="Next Alumni">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
 
-                <div class="alumni-cards-grid reveal">
+                <div class="alumni-cards-viewport reveal">
+                    <div class="alumni-cards-grid" id="alumniCardsGrid">
                     <!-- Card 1: Rohan Sagar -->
                     <div class="alumni-card">
                         <div class="alumni-card-body">
@@ -1965,8 +1984,9 @@
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- CTA Button -->
+            <!-- CTA Button -->
                 <div class="alumni-cta-wrapper reveal">
                     <button class="btn-download-report">
                         Download Placement Report
@@ -2056,7 +2076,8 @@
                 <div class="recruiters-header reveal">
                     <h2 class="recruiters-title">Our Top Recruiters</h2>
                 </div>
-                <div class="recruiters-grid reveal" id="recruitersGrid">
+                <div class="recruiters-slider-wrapper reveal">
+                    <div class="recruiters-grid" id="recruitersGrid">
                     <div class="recruiter-card">
                         <img src="Assist/recruiters/recruiter_1.png" alt="Bosch" class="recruiter-img" width="134"
                             height="29" />
@@ -2179,7 +2200,8 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
         <!-- ===== 9. WHY STUDENTS SECTION ===== -->
         <section class="why-section" id="why-section">

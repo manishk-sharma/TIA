@@ -379,6 +379,65 @@ function initScrollReveal() {
 }
 
 // ============================================
+// 8. RECRUITERS INFINITE SLIDER (MARQUEE)
+// ============================================
+function initRecruitersMarquee() {
+  const grid = document.getElementById('recruitersGrid');
+  if (!grid) return;
+
+  // Duplicate cards once for seamless infinite right-to-left marquee on non-laptop screens
+  const originalCards = Array.from(grid.querySelectorAll('.recruiter-card:not(.recruiter-clone)'));
+  if (originalCards.length === 0) return;
+
+  const fragment = document.createDocumentFragment();
+  originalCards.forEach((card) => {
+    const clone = card.cloneNode(true);
+    clone.classList.add('recruiter-clone');
+    clone.setAttribute('aria-hidden', 'true');
+    fragment.appendChild(clone);
+  });
+  grid.appendChild(fragment);
+
+  // Pause on touch and resume on release for mobile devices
+  grid.addEventListener('touchstart', () => {
+    grid.style.animationPlayState = 'paused';
+  }, { passive: true });
+
+  grid.addEventListener('touchend', () => {
+    grid.style.animationPlayState = 'running';
+  }, { passive: true });
+
+  grid.addEventListener('touchcancel', () => {
+    grid.style.animationPlayState = 'running';
+  }, { passive: true });
+}
+
+// ============================================
+// 9. ALUMNI CAROUSEL (NON-LAPTOP SCREENS)
+// ============================================
+function initAlumniCarousel() {
+  const alumniCardsGrid = document.getElementById('alumniCardsGrid');
+  const alumniPrev = document.getElementById('alumniPrev');
+  const alumniNext = document.getElementById('alumniNext');
+
+  function getAlumniVisibleCount() {
+    if (window.innerWidth <= 576) return 1;
+    if (window.innerWidth <= 1024) return 2;
+    return 4;
+  }
+
+  createInfiniteCarousel({
+    track: alumniCardsGrid,
+    cardSelector: '.alumni-card',
+    prevBtn: alumniPrev,
+    nextBtn: alumniNext,
+    transitionDuration: 420,
+    transitionTiming: 'cubic-bezier(0.25, 1, 0.5, 1)',
+    getVisibleCount: getAlumniVisibleCount
+  });
+}
+
+// ============================================
 // APPLICATION INITIALIZATION
 // ============================================
 document.addEventListener('DOMContentLoaded', () => {
@@ -389,4 +448,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initReviewCarousel();
   initFAQAccordion();
   initScrollReveal();
+  initRecruitersMarquee();
+  initAlumniCarousel();
 });
