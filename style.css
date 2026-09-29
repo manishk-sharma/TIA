@@ -953,7 +953,7 @@ button {
 }
 
 .linkedin-main-subtitle {
-  font-size: 14.5px;
+  font-size: 14px;
   line-height: 1.55;
   color: #1F2937;
   font-weight: 400;
@@ -1792,7 +1792,7 @@ button {
 }
 
 .center-brand-logo {
-  width: 64px;
+  width: 85px;
   height: auto;
   display: block;
   object-fit: contain;
